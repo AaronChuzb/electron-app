@@ -20,7 +20,8 @@ function createWindow() {
     height: 768,
     webPreferences: {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
-    }
+    },
+    show: false
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -30,6 +31,9 @@ function createWindow() {
     createProtocol('app')
     win.loadURL('app://./index.html')
   }
+  win.on('ready-to-show', () =>{
+    win.show()
+  })
   win.on('closed', () => {
     win = null
   })
